@@ -1,18 +1,23 @@
 package com.example.daniellee.dcpcapp;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class EventListActivity extends AppCompatActivity {
 
     public static ArrayList<Event> events = new ArrayList<>();
 
@@ -30,7 +35,13 @@ public class MainActivity extends AppCompatActivity {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        }
+        );
+
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        String fullname = preferences.getString("fullname", "NO NAME");
+        Log.d("DCBC EVENTS", fullname);
 
         // other lines are as before
         /*
@@ -46,21 +57,21 @@ public class MainActivity extends AppCompatActivity {
          * We’ll be creating this EventAdapter in the next step
          */
 
+        AdapterView listView = null;
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
 
                 Event event = (Event) a.getItemAtPosition(position); 				// get the item that was tapped
 
-                Intent intent = new Intent(v.getContext(), EventDetailsActivity.class);	// CHANGE ME
-                intent.putExtra("nz.net.crane.dcbc_events.Event", event); 			// CHANGE ME
+                Intent intent = new Intent(v.getContext(), AddEvent.class);	// CHANGE ME
+                intent.putExtra("com.example.daniellee.dcpcapp.Event", event);      		// CHANGE ME
 
                 startActivity(intent); 										// start the activity passing the selected Event
             }
         });
 
         EventAdapter adapter = new EventAdapter(this, events);
-        ListView listView = findViewById(R.id.list_view1);      // note this view ID is the one that was referred to in the XML layout above
         listView.setAdapter(adapter);
     }
 
@@ -71,6 +82,8 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -80,7 +93,10 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            Intent settingsIntent =
+                    new Intent(this,
+                            Settings.class);
+            startActivity(settingsIntent);
         }
 
         return super.onOptionsItemSelected(item);

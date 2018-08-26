@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="frequency">
+        <item>1 day</item>
+        <item>12 hours</item>
+        <item>4 hours</item>
+        <item>1 hours</item>
+        <item>30 minutes</item>
+        <item>15 minutes</item>
+    </string-array>
+    <string-array name="frequencyValues">
+        <item>1440</item>
+        <item>720</item>
+        <item>240</item>
+        <item>60</item>
+        <item>30</item>
+        <item>15</item>
+    </string-array>
+
+</resources>

@@ -57,7 +57,10 @@ public class EventListActivity extends AppCompatActivity {
          * We’ll be creating this EventAdapter in the next step
          */
 
-        AdapterView listView = null;
+        AdapterView listView = findViewById(R.id.list_view1);
+
+        EventAdapter adapter = new EventAdapter(this, events);
+        listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
@@ -71,8 +74,6 @@ public class EventListActivity extends AppCompatActivity {
             }
         });
 
-        EventAdapter adapter = new EventAdapter(this, events);
-        listView.setAdapter(adapter);
     }
 
     @Override

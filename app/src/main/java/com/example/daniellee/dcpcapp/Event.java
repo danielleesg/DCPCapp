@@ -9,6 +9,14 @@ public class Event implements Parcelable {
     private String location;
     private String title;
 
+    private String url;
+    private String host;
+    private String street;
+    private String suburb;
+    private String city;
+
+    private String owner;
+
     public Event (String title, String location, String date ){
         this.title= title;
         this.location = location;
@@ -21,17 +29,19 @@ public class Event implements Parcelable {
     public void writeToParcel (Parcel dest, int flags) {
         //TODO Add things here
         dest.writeString(this.title);
+        dest.writeString(this.location);
+        dest.writeString(this.date);
+//        dest.writeString(this.url);
+        //...
+
     }
 
     public Event(Parcel parcel) {
         this.title = parcel.readString();
         // TODO continue to adding lines
-
+        this.location = parcel.readString();
         this.date = parcel.readString();
-        // TODO continue to adding lines
-
-        this.location =  parcel.readString();
-        // TODO continue to adding lines
+        //...
     }
 
     private static final Parcelable.Creator <Event> CREATOR = new Parcelable.Creator <Event>() {
@@ -45,4 +55,8 @@ public class Event implements Parcelable {
             return new Event[0];
         }
     };
+
+    public String toString(){
+        return this.title;
+    }
 }

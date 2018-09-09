@@ -89,6 +89,7 @@ public class EventListActivity extends AppCompatActivity {
             result = eventListRequest.execute();
             if (result.isSuccessful() ) {
                 if (result.body() != null) {
+
                     // retrieve the events from the response body
                     for (Event e : result.body()) {
                         events.add(e);
@@ -111,9 +112,14 @@ public class EventListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> a,
                                     View v, int position, long id) {
+
                 Event event = (Event)a.getItemAtPosition(position);
                 Intent intent = new Intent(v.getContext(),
                         DetailsActivity.class);
+
+
+                Log.i("TAG", "sending " + event);
+
                 intent.putExtra("com.example.daniellee.dcpcapp.Event", event);
                 startActivity(intent);
             }
@@ -142,6 +148,11 @@ public class EventListActivity extends AppCompatActivity {
                     new Intent(this,
                             Settings.class);
             startActivity(settingsIntent);
+        }
+
+        if(id == R.id.action_add_event){
+            Intent addEvent = new Intent(this, EventCreate.class);
+            startActivity(addEvent);
         }
 
         return super.onOptionsItemSelected(item);

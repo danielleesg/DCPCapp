@@ -4,5 +4,6 @@
     <string name="button_send">Send</string>
     <string name="title_activity_add_new_event">AddNewEvent</string>
     <string name="title_activity_add_event">AddEvent</string>
-    <string name="action_settings">Settings</string>s
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_event_create">EventCreate</string>s
 </resources>

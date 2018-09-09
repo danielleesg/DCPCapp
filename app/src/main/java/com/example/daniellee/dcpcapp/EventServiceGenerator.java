@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 */
 public class EventServiceGenerator {
 
-	private static final String API_BASE_URL = "http://milou.local:8080/api/v1/";
+	private static final String API_BASE_URL = "http://192.168.1.198:8080/api/v1/";
 
 	private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 

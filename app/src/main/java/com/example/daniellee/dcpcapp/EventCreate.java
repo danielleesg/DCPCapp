@@ -4,9 +4,9 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.app.DialogFragment;
 import android.view.View;
 import android.app.TimePickerDialog;
 import android.app.DatePickerDialog;
@@ -22,6 +22,7 @@ import java.util.Locale;
 
 import android.widget.EditText;
 
+import android.util.Log;
 
 
 public class EventCreate extends AppCompatActivity {
@@ -45,9 +46,18 @@ public class EventCreate extends AppCompatActivity {
     }
 
     public void showTimePickerDialog(View v) {
+
+        Log.i("EventCreate", "In the show time picker dialog");
+
         DialogFragment newFragment = new TimePickerFragment();
 //        newFragment.show(getFragmentManager(), "timePicker");
-        newFragment.show(getSupportFragmentManager(), "timePicker");
+        newFragment.show(getFragmentManager(), "timePicker");
+
+//        FragmentManager mgr = getSupportFragmentManager();
+//        FragmentTransaction show = mgr.beginTransaction().show(newFragment);
+//        show.commit();
+
+//        newFragment.show(mgr, "timePicker");
     }
 
 
@@ -65,7 +75,7 @@ public class EventCreate extends AppCompatActivity {
             Calendar cal = Calendar.getInstance();
             cal.set(Calendar.HOUR_OF_DAY, hourOfDay);
             cal.set(Calendar.MINUTE, minute);
-            SimpleDateFormat sdf = new SimpleDateFormat("H:m", Locale.US);
+            SimpleDateFormat sdf = new SimpleDateFormat("H:mm", Locale.US);
             ((EditText)findViewById(R.id.eventTime)).setText(
                     sdf.format(cal.getTime()));
         }
@@ -73,7 +83,7 @@ public class EventCreate extends AppCompatActivity {
 
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new DatePickerFragment();
-        newFragment.show(getSupportFragmentManager(), "timePicker");
+        newFragment.show(getFragmentManager(), "timePicker");
     }
 
     @SuppressLint("ValidFragment")

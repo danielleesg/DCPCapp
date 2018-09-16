@@ -15,6 +15,43 @@
         android:orientation="vertical">
 
     <EditText
+        android:id="@+id/eventTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Title">
+    </EditText>
+
+    <EditText
+        android:id="@+id/eventStreetAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Street Address"
+        android:inputType="text"
+        android:clickable="true"
+        android:focusable="false">
+        </EditText>
+
+    <EditText
+        android:id="@+id/eventHost"
+        android:layout_height="wrap_content"
+        android:hint="Host"
+        android:inputType="text"
+        android:clickable="true"
+        android:focusable="false"
+        android:layout_width="match_parent">
+    </EditText>
+
+    <EditText
+        android:id="@+id/eventCity"
+        android:layout_height="wrap_content"
+        android:hint="City"
+        android:inputType="text"
+        android:clickable="true"
+        android:focusable="false"
+        android:layout_width="match_parent">
+    </EditText>
+
+    <EditText
         android:id="@+id/eventTime"
         android:layout_height="wrap_content"
         android:hint="Time"
@@ -35,6 +72,24 @@
         android:onClick="showDatePickerDialog"
         android:layout_width="match_parent">
     </EditText>
+
+    <EditText
+        android:id="@+id/eventLocation"
+        android:layout_height="wrap_content"
+        android:hint="Location"
+        android:inputType="text"
+        android:clickable="true"
+        android:layout_width="match_parent">
+    </EditText>
+
+    <EditText
+        android:id="@+id/eventSuburb"
+        android:layout_height="wrap_content"
+        android:hint="Suburb"
+        android:inputType="text"
+        android:clickable="true"
+        android:layout_width="match_parent">
+        </EditText>
 </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

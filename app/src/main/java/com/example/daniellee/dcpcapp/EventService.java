@@ -19,4 +19,10 @@ public interface EventService {
 	@GET("events/")
 	Call<List<Event>> listEvents();
 
+	@POST("events/")
+	Call<Event> addEvent(@Body Event event);
+	@PUT("events/{id}")
+	Call<Event> editEvent(@Path("id") int id, @Body Event event);
+	@DELETE("events/{id}")
+	Call<Event> deleteEvent(@Path("id") int id);
 }

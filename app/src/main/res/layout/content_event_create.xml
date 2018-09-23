@@ -27,8 +27,7 @@
         android:layout_height="wrap_content"
         android:hint="Street Address"
         android:inputType="text"
-        android:clickable="true"
-        android:focusable="false">
+        android:clickable="true">
         </EditText>
 
     <EditText
@@ -37,7 +36,6 @@
         android:hint="Host"
         android:inputType="text"
         android:clickable="true"
-        android:focusable="false"
         android:layout_width="match_parent">
     </EditText>
 
@@ -47,7 +45,6 @@
         android:hint="City"
         android:inputType="text"
         android:clickable="true"
-        android:focusable="false"
         android:layout_width="match_parent">
     </EditText>
 

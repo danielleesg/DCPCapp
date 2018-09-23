@@ -4,7 +4,12 @@ import java.util.List;
 //import nz.net.crane.dcbc.events.Event;
 //import nz.net.crane.dcbc.events.User;
 import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 /**
  * Created by Paul Crane on 1/09/18.
@@ -21,8 +26,10 @@ public interface EventService {
 
 	@POST("events/")
 	Call<Event> addEvent(@Body Event event);
+
 	@PUT("events/{id}")
 	Call<Event> editEvent(@Path("id") int id, @Body Event event);
+
 	@DELETE("events/{id}")
 	Call<Event> deleteEvent(@Path("id") int id);
 }

@@ -2,6 +2,7 @@ package com.example.daniellee.dcpcapp;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -12,17 +13,22 @@ import android.app.TimePickerDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.Calendar;
-
 import android.widget.TimePicker;
 import android.widget.DatePicker;
-
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import android.widget.EditText;
 
 import android.util.Log;
+
+import retrofit2.Call;
 
 
 public class EventCreate extends AppCompatActivity {
@@ -41,6 +47,87 @@ public class EventCreate extends AppCompatActivity {
                 Snackbar.make(view, "Replace with your own action",
                         Snackbar.LENGTH_LONG).setAction(
                         "Action", null).show();
+
+                String title = String.valueOf((
+                        (EditText) findViewById(R.id.eventTitle)
+                ).getText());
+
+                // fill this stuff in using the pattern from the title above
+
+                String location = String.valueOf((
+                        (EditText) findViewById(R.id.eventLocation)
+                ).getText());
+
+                String date = String.valueOf((
+                        (EditText) findViewById(R.id.eventDate)
+                ).getText());
+
+                String time = String.valueOf((
+                        (EditText) findViewById(R.id.eventTime)
+                ).getText());
+
+                String host = String.valueOf((
+                        (EditText) findViewById(R.id.eventHost)
+                ).getText());
+
+                String street = String.valueOf((
+                        (EditText) findViewById(R.id.eventStreetAddress)
+                ).getText());
+
+                String suburb = String.valueOf((
+                        (EditText) findViewById(R.id.eventSuburb)
+                ).getText());
+
+                String city = String.valueOf((
+                        (EditText) findViewById(R.id.eventCity)
+                ).getText());
+
+                Log.i("CreateEvent", title + " "
+                        + location + " "
+                        + date + " "
+                        + time + " "
+                        + host + " "
+                        + street + " "
+                        + suburb + " "
+                        + city);
+
+
+                String datetime = "";
+                try {
+                    // join the date and time from the user’s input into one
+                    // line and transform it into a Date object
+                    Date d = new SimpleDateFormat("dd/MM/yyyy hh:mm")
+                            .parse(date + " " + time);
+                    // convert it to ISO8601 format
+                    TimeZone tz = TimeZone.getTimeZone("UTC");
+                    DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
+                    df.setTimeZone(tz);
+                    // generate a string version to send to the API
+                    datetime = df.format(d);
+
+                    Event e = new Event(title, location,
+                            datetime, host,
+                            street, suburb, city);
+
+
+//                    e = new Event("title", "location", datetime, "host", "street", "suburb", "city");
+
+                    Log.i("Event", e.toString());
+
+                    StrictMode.ThreadPolicy policy =
+                            new StrictMode.ThreadPolicy.Builder()
+                                    .permitAll().build();
+                    StrictMode.setThreadPolicy(policy);
+                    String adminToken = "fbb24ba2589e13f5f9728f6210efb44dc69dacb6";
+                    EventService service = EventServiceGenerator
+                            .createService(EventService.class, adminToken);
+                    Call<Event> addEvent = service.addEvent(e);
+                    addEvent.execute();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }catch(ParseException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

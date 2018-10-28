@@ -1,7 +1,9 @@
 package com.example.daniellee.dcpcapp;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -29,9 +31,22 @@ import android.widget.EditText;
 import android.util.Log;
 
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class EventCreate extends AppCompatActivity {
+
+    private String fieldIsNotEmpty(EditText editText) {
+        if (editText.getText().length() == 0) {
+            editText.setError("Field cannot be empty");
+            return null;
+        }
+        return String.valueOf(editText.getText());
+    }
+
+    private Handler mHandler = new Handler();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +97,14 @@ public class EventCreate extends AppCompatActivity {
                         (EditText) findViewById(R.id.eventCity)
                 ).getText());
 
+                if (title == null || street == null || host == null ||
+                        city == null || date == null || time == null ||
+                        location == null || suburb == null) {
+                // one of the fields has not been entered
+                // so stop processing the onClickEvent
+                    return;
+                }
+
                 Log.i("CreateEvent", title + " "
                         + location + " "
                         + date + " "
@@ -122,10 +145,43 @@ public class EventCreate extends AppCompatActivity {
                     EventService service = EventServiceGenerator
                             .createService(EventService.class, adminToken);
                     Call<Event> addEvent = service.addEvent(e);
-                    addEvent.execute();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }catch(ParseException e) {
+                    //addEvent.execute();
+                    addEvent.enqueue(new Callback<Event>() {
+                        @Override
+                        public void onResponse(Call<Event> call, Response<Event> response) {
+                            final Response<Event> r = response;
+                            mHandler.post(new Runnable() {
+                                public void run(){
+                                    AlertDialog.Builder builder =
+                                            new AlertDialog.Builder(EventCreate.this);
+                                    builder.setMessage("Success!");
+
+                                    if (r.isSuccessful()) {
+                                        builder.setMessage("Success!");
+                                    } else {
+                                        builder.setMessage(r.message());
+                                    }
+                                    builder.show();
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onFailure(Call<Event> call, Throwable t) {
+                            final Throwable throwable = t;
+                            mHandler.post(new Runnable() {
+                                public void run(){
+                                    AlertDialog.Builder builder =
+                                            new AlertDialog.Builder(EventCreate.this);
+                                    builder.setMessage("Failure: " +
+                                            throwable.getLocalizedMessage());
+                                    builder.show();
+                                }
+                            });
+
+                        }
+                    });
+                } catch(ParseException e) {
                     e.printStackTrace();
                 }
             }
@@ -197,9 +253,5 @@ public class EventCreate extends AppCompatActivity {
                     sdf.format(cal.getTime()));
         }
     }
-
-
-
-
 
 } // this is the last brace in the class

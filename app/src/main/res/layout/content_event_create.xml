@@ -18,6 +18,7 @@
         android:id="@+id/eventTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="textCapWords|textAutoCorrect"
         android:hint="Title">
     </EditText>
 
@@ -26,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Street Address"
-        android:inputType="text"
+        android:inputType="textPostalAddress|textCapWords|textAutoCorrect"
         android:clickable="true">
         </EditText>
 
@@ -34,7 +35,7 @@
         android:id="@+id/eventHost"
         android:layout_height="wrap_content"
         android:hint="Host"
-        android:inputType="text"
+        android:inputType="textPersonName|textCapWords|textAutoCorrect"
         android:clickable="true"
         android:layout_width="match_parent">
     </EditText>
@@ -43,7 +44,7 @@
         android:id="@+id/eventCity"
         android:layout_height="wrap_content"
         android:hint="City"
-        android:inputType="text"
+        android:inputType="textPostalAddress|textCapWords|textAutoCorrect"
         android:clickable="true"
         android:layout_width="match_parent">
     </EditText>
@@ -74,7 +75,7 @@
         android:id="@+id/eventLocation"
         android:layout_height="wrap_content"
         android:hint="Location"
-        android:inputType="text"
+        android:inputType="text|textCapWords|textAutoCorrect"
         android:clickable="true"
         android:layout_width="match_parent">
     </EditText>
@@ -83,7 +84,7 @@
         android:id="@+id/eventSuburb"
         android:layout_height="wrap_content"
         android:hint="Suburb"
-        android:inputType="text"
+        android:inputType="textPostalAddress|textCapWords|textAutoCorrect"
         android:clickable="true"
         android:layout_width="match_parent">
         </EditText>
